@@ -1,12 +1,42 @@
 <div class="container mt-3">
+<h1>All our flats</h1>
+<p>Our <%= @flats.count %> flats.</p>
 
-    <div class="card" style="width: 18rem;">
-      <img src="..." class="card-img-top" alt="...">
-    <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
-    </div>
-    </div>
+<div class="card-deck d-flex justify-content-between">
+    <div class="row">
+      <% @flats.each do |flat| %>
+        <div class="col-4">
+          <div class="card" style="width: 18rem;">
+            <img src="<%= flat.picture_url %>" class="card-img-top" alt="...">
+            <div class="card-body">
+              <div class="card-content">
+                <h5 class="card-title py-1"> <%= flat.name %></h5>
+                <p class="card-text py-1"><%= flat.address %></p>
+              </div>
+              <div class="all-icons d-flex py-3">
+                <div class="icon d-flex align-items-center mr-4">
+                  <%= icon('fas', 'user-friends') %>
+                  <span class="px-2"> <%= flat.number_of_guests %> </span>
+                </div>
 
+                <div class="icon d-flex align-items-center ml-2">
+                  <%= icon('fas', 'euro-sign') %>
+                  <span class="px-2"> <%= flat.price_per_night %> </span>
+                </div>
+              </div>
+              <div class="btn-group btn-group-sm card-footer bg-transparent">
+                <%= link_to 'More info', flats_path, class: 'btn btn-outline-primary btn-small '%>
+                <%= link_to 'Edit', edit_flat_path(flat), class: 'btn btn-outline-primary btn-small '%>
+                <%= link_to 'Remove', 
+                flat_path(flat),
+                method: :delete,
+                data: { confirm: 'Are you sure?' },
+                class: 'btn btn-outline-primary btn-small '%>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
 </div>
